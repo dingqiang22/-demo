@@ -1,0 +1,21 @@
+dataSources:
+  ds_master: !!com.alibaba.druid.pool.DruidDataSource
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://192.168.2.42:3306/dq_demo
+    username: dztclsw
+    password: TfdQNeWydjxV8Gds6
+  ds_slave0: !!com.alibaba.druid.pool.DruidDataSource
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://192.168.2.42:3306/dq_demoSlave_1
+    username: dztclsw
+    password: TfdQNeWydjxV8Gds6
+  ds_slave1: !!com.alibaba.druid.pool.DruidDataSource
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://192.168.2.42:3306/dq_demoSlave_2
+    username: dztclsw
+    password: TfdQNeWydjxV8Gds6
+
+masterSlaveRule:
+  name: ds_ms
+  masterDataSourceName: ds_master
+  slaveDataSourceNames: [ds_slave0, ds_slave1]

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <meta charset="utf-8">
+    <title>686 Adminize</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Le styles -->
+    <link href="http://fonts.googleapis.com/css?family=Oxygen|Marck+Script" rel="stylesheet" type="text/css">
+    <link th:href="@{/assets/css/bootstrap.css}" rel="stylesheet">
+    <link th:href="@{/assets/css/font-awesome.css}" rel="stylesheet">
+    <link th:href="@{/assets/css/admin.css}" rel="stylesheet">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+</head>
+<body>
+
+<div class="container">
+
+    <div class="row">
+
+        <div class="span2">
+
+            <div class="main-left-col">
+
+                <h1><i class="icon-shopping-cart icon-large"></i>用户中心</h1>
+
+                <ul class="side-nav">
+
+                    <li>
+                        <a th:href="@{/view/list}"><i class="icon-home"></i> 用户管理</a>
+                    </li>
+                </ul>
+
+            </div> <!-- end main-left-col -->
+
+        </div> <!-- end span2 -->
+
+        <div class="span10">
+
+            <div class="secondary-masthead">
+                <ul class="breadcrumb">
+                    <li>
+                        <a href="#">用户中心</a> <span class="divider">/</span>
+                    </li>
+                    <li class="active">新增用户</li>
+                </ul>
+
+            </div>
+
+            <div class="main-area dashboard">
+                <div class="row">
+
+                    <div class="span10">
+
+                        <div class="slate">
+
+                            <div class="page-header">
+                                <h2>用户编辑</h2>
+                            </div>
+                            <form class="form-horizontal" method="get" th:action="@{/view/}">
+                                <fieldset>
+                                    <input type="hidden" id="userId" name="userId" th:value="${user.userId}">
+                                    <div class="control-group">
+                                        <label class="control-label">用户姓名</label>
+                                        <div class="controls">
+                                            <input class="input-xlarge focused" type="text" th:value="${user.userName}" id="username">
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label">手机号</label>
+                                        <div class="controls">
+                                            <input class="input-xlarge focused" type="text" th:value="${user.phone}" id="phone">
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </form>
+
+                        </div>
+
+                    </div>
+                    <div class="span10 listing-buttons">
+                        <button class="btn btn-info" onclick="submitForm()">修改</button>
+                        <a th:href="@{/view/list}"><button class="btn btn-primary">取消</button></a>
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="span10 footer">
+
+                        <p>&copy; Website Name 2014</p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div> <!-- end span10 -->
+
+    </div> <!-- end row -->
+
+</div> <!-- end container -->
+
+<!-- Le javascript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script th:src="@{/assets/js/jquery.min.js}"></script>
+<script th:src="@{/assets/js/bootstrap.js}"></script>
+<script type="text/javascript">
+        function submitForm() {
+           var username= $("#username").val();
+           var phone= $("#phone").val();
+           var userId= $("#userId").val();
+            $.get("/db/update", { userId: userId,username: username, phone: phone},
+                function(data){
+                if(data.code==0){
+                    alert("保存成功: " + data.data);
+                    window.location.href="/view/list"
+                }else {
+                    alert("保存失败: " + data.data);
+                }
+
+                });
+        }
+    
+</script>
+
+</body>
+</html>
